@@ -691,7 +691,13 @@ pub fn nswindow_level_to_window_level(nswindow_level: NSWindowLevel) -> WindowLe
         -1 => WindowLevel::AlwaysOnBottom,
         0 => WindowLevel::Normal,
         3 => WindowLevel::AlwaysOnTop,
-        _ => panic!("Invalid window level: {}", nswindow_level),
+        other => {
+            log::warn!(
+                "Unexpected NSWindowLevel: {}, treating as Normal",
+                other
+            );
+            WindowLevel::Normal
+        }
     }
 }
 
